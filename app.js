@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const keys = require('./config/keys')
+const keys = require('./config/keys');
 
 mongoose.connect(keys.mongoURI)
     .then(()=>console.log('mongo db connect'))
