@@ -2,12 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 
 mongoose.connect(keys.mongoURI)
     .then(()=>console.log('mongo db connect'))
     .catch(()=>console.log('connect error'));
+
+
 
 const authRoutes = require('./routes/auth');
 const analyticsRoutes = require('./routes/analytics');
@@ -16,6 +19,9 @@ const orderRoutes = require('./routes/order');
 const positionRoutes = require('./routes/position');
 
 const app = express();
+
+app.use(passport.initialize());
+require('./middleware/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true}));
