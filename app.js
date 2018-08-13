@@ -6,6 +6,9 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./config/swagger.json');
+
 mongoose.connect(keys.mongoURI)
     .then(()=>console.log('mongo db connect'))
     .catch(()=>console.log('connect error'));
@@ -28,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 app.use(cors());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/analytics', analyticsRoutes);
