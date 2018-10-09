@@ -3,7 +3,6 @@ const Position = require('../models/Position');
 const errorHandler = require('../utils/errorHandler');
 
 module.exports.getAll  = async function (req, res) {
-res.json({messages: 'testset'});
     try {
         const categories = await Category.find({
             user: req.user.id
